@@ -18,9 +18,9 @@ package com.embabel.example.horoscope
 import com.embabel.agent.domain.library.NewsStory
 import com.embabel.agent.domain.library.RelevantNewsStories
 import com.embabel.agent.testing.UnitTestUtils
-import com.embabel.example.horoscope.kotlin.Horoscope
-import com.embabel.example.horoscope.kotlin.StarNewsFinder
-import com.embabel.example.horoscope.kotlin.StarPerson
+import com.embabel.example.horoscope.Horoscope
+import com.embabel.example.horoscope.StarNewsFinder
+import com.embabel.example.horoscope.StarPerson
 import io.mockk.mockk
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Nested
