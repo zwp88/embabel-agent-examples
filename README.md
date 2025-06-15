@@ -247,56 +247,6 @@ data class ResearcherProperties(
 
 ---
 
-## 📊 Presentation Generation System
-
-**Language:** Kotlin | **Domain:** Content Creation | **Complexity:** Expert
-
-### What It Does
-An AI-powered presentation creator that researches topics, generates slide content, creates diagrams, and formats everything into professional presentations.
-
-### Key Features
-- 📋 **Research Planning** - Identifies key topics to research
-- 🔍 **Multi-Source Research** - Web research + code analysis
-- 📈 **Diagram Generation** - Creates GraphViz diagrams automatically
-- 🎨 **Smart Formatting** - Outputs Marp-compatible markdown
-- 🖼️ **Image Integration** - Adds relevant illustrations
-- 🎯 **Code Integration** - Finds and formats code examples
-
-### Agent Workflow
-```mermaid
-graph LR
-    A[Presentation Request] --> B[Identify Research Topics]
-    B --> C[Parallel Research]
-    C --> D[Create Slide Deck]
-    D --> E[Expand Diagrams]
-    E --> F[Add Illustrations]
-    F --> G[Convert to HTML]
-```
-
-### How to Use
-```bash
-# Create presentation from YAML config
-make-presentation --file=path/to/presentation-config.yml
-```
-
-### Sample Configuration
-```yaml
-slideCount: 10
-presenterBio: "Senior Kotlin Developer"
-brief: "Introduction to Kotlin Coroutines for Enterprise Applications"
-softwareProject: "/path/to/kotlin/project"
-outputDirectory: "/Users/alex/presentations"
-header: |
-  ---
-  theme: default
-  class: lead
-  ---
-```
-
-**Location:** `examples-kotlin/src/main/kotlin/com/embabel/example/dogfood/presentation/`
-
----
-
 ## 🌟 Horoscope Service
 
 **Language:** Java & Kotlin | **Domain:** Entertainment | **Complexity:** Beginner
@@ -370,6 +320,46 @@ fact-check "The latest climate change statistics show..."
 ```
 
 **Location:** `examples-kotlin/src/main/kotlin/com/embabel/example/dogfood/factchecker/`
+
+## 🧠 Core Framework Patterns
+
+These examples demonstrate key patterns you'll use when building with the Embabel Agent framework:
+
+### Agent Workflow Pattern
+```kotlin
+@Agent(description = "Agent purpose")
+class MyAgent {
+    
+    @Action(pre = ["condition"], post = ["result"])
+    fun performTask(input: Input, context: OperationContext): Output {
+        // Agent logic here
+    }
+    
+    @Condition(name = "condition")
+    fun checkCondition(context: OperationContext): Boolean = true
+    
+    @AchievesGoal(description = "Final goal")
+    fun completeTask(result: Output): FinalResult = result
+}
+```
+
+### Multi-Model Research Pattern
+```kotlin
+// Parallel execution with different models
+val researchReports = topics.parallelMap(context) { topic ->
+    context.promptRunner(llm = gpt4Model).create<ResearchReport>(prompt)
+}
+```
+
+### Human-in-the-Loop Pattern
+```kotlin
+@Action
+fun confirmAction(entity: Entity): Entity? {
+    return if (config.requireConfirmation) {
+        ConfirmationRequest(entity, "Please confirm: ${entity.name}")
+    } else entity
+}
+```
 
 ---
 
@@ -493,32 +483,34 @@ mvn test
 
 ### Example Test Classes
 - `MovieFinderTest.kt` - Unit tests for movie recommendations
-- `PresentationMakerTest.kt` - Tests for presentation generation
+- `StarNewsFinderTest.kt` - Tests for horoscope news integration
 - `ResearcherTest.kt` - Tests for research capabilities
 
 ## 🛠️ Development Tips
 
 ### Key Kotlin Features Demonstrated
 
-- **Data Classes with Behavior** - Rich domain models
+- **Data Classes with Behavior** - Rich domain models with computed properties
 - **Type Aliases** - Domain-specific types (`typealias OneThroughTen = Int`)
-- **Extension Functions** - Enhanced functionality
+- **Extension Functions** - Enhanced functionality for existing types
 - **Coroutines** - Parallel execution (`parallelMap`)
-- **Delegation** - Clean composition patterns
+- **Delegation** - Clean composition patterns (`PromptContributor by coStar`)
+- **Sealed Classes** - Type-safe enumeration for categories and states
 
 ### Spring Framework Patterns
 
-- **Configuration Properties** - Type-safe configuration
-- **Conditional Beans** - Environment-specific components
-- **Component Scanning** - Automatic agent discovery
-- **Shell Integration** - CLI interfaces
+- **Configuration Properties** - Type-safe configuration with `@ConfigurationProperties`
+- **Conditional Beans** - Environment-specific components with `@ConditionalOnBean`
+- **Component Scanning** - Automatic agent discovery with `@Agent`
+- **Shell Integration** - CLI interfaces with Spring Shell
 
 ### Agent Design Patterns
 
-- **Workflow Orchestration** - Multi-step processes
-- **Blackboard Pattern** - Shared data between actions
-- **Human-in-the-Loop** - Confirmations and approvals
-- **Self-Improvement** - Critique and retry loops
+- **Workflow Orchestration** - Multi-step processes with `@Action` chains
+- **Blackboard Pattern** - Shared data workspace between actions
+- **Human-in-the-Loop** - Confirmations and approvals with `ConfirmationRequest`
+- **Self-Improvement** - Critique and retry loops in research workflows
+- **Multi-Model Consensus** - Combining results from different LLMs
 
 ## 🚨 Troubleshooting
 
@@ -583,6 +575,8 @@ logging:
   level:
     com.embabel: DEBUG
     org.springframework: INFO
+    com.embabel.example.movie: TRACE      # For movie agent debugging
+    com.embabel.example.dogfood: TRACE    # For research/factchecker debugging
 ```
 
 ## 🤝 Contributing
