@@ -3,4 +3,4 @@
 export AGENT_APPLICATION=../../examples-kotlin
 export SPRING_PROFILES_ACTIVE=shell,starwars,docker-desktop
 
-../support/agent_env.sh
+../support/agent.sh

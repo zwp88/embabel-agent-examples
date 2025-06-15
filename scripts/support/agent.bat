@@ -1,10 +1,8 @@
 @echo off
 setlocal
 
-
 set SCRIPT_DIR=%~dp0
 set ENV_SCRIPT=%SCRIPT_DIR%check_env.bat
-set SPRING_PROFILES_ACTIVE=shell,starwars,docker-desktop
 
 call %SCRIPT_DIR%\check_env.bat
 
