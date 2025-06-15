@@ -22,6 +22,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;
 
 &nbsp;&nbsp;&nbsp;&nbsp;
+
 # 🤖 Embabel Agent Examples
 
 Learn agentic AI development with **Spring Framework** and **Kotlin/Java**. These examples demonstrate building intelligent agents that can plan, execute workflows, use tools, and interact with humans.
@@ -353,6 +354,126 @@ mvn test
 # Module-specific tests
 cd examples-kotlin && mvn test
 cd examples-java && mvn test
+```
+
+---
+
+## 🌐 **MCP Server Mode (Model Context Protocol)**
+
+**Expose your agents as MCP servers** to integrate with Claude Desktop, IDEs, and other AI assistants that support the Model Context Protocol.
+
+### **What is MCP?**
+MCP (Model Context Protocol) is Anthropic's open protocol that enables AI assistants to securely connect to data sources and tools. By running your agents as MCP servers, you can:
+
+- 🤖 **Use agents as tools** in Claude Desktop
+- 🔧 **Integrate with IDEs** that support MCP
+- 🌉 **Bridge AI assistants** with your domain-specific agents
+- 🔒 **Secure tool access** with proper authentication
+
+### **Start MCP Server**
+
+#### **Kotlin Agents as MCP Server**
+```bash
+cd scripts/kotlin
+./mcp_server.sh         # Unix/Linux/macOS
+mcp_server.cmd           # Windows
+```
+
+#### **Java Agents as MCP Server**
+```bash
+cd scripts/java
+./mcp_server.sh          # Unix/Linux/macOS
+mcp_server.cmd           # Windows
+```
+
+### **MCP Server Configuration**
+
+The MCP server exposes your agents as tools that can be called by Claude or other MCP-compatible clients:
+
+```json
+{
+  "mcpServers": {
+    "embabel-agents": {
+      "command": "./scripts/kotlin/mcp_server.sh",
+      "args": [],
+      "env": {
+        "OPENAI_API_KEY": "your_openai_key",
+        "ANTHROPIC_API_KEY": "your_anthropic_key"
+      }
+    }
+  }
+}
+```
+
+### **Available Agent Tools via MCP**
+
+When running as an MCP server, your agents become available as tools:
+
+- **🌟 StarNewsFinder** - `find_horoscope_news`
+  - *Input*: Person's name and star sign
+  - *Output*: Personalized news writeup based on horoscope
+
+- **🎬 MovieFinder** - `suggest_movies` 
+  - *Input*: Movie buff preferences and request
+  - *Output*: Streaming-available movie recommendations
+
+- **🔬 Researcher** - `research_topic`
+  - *Input*: Research question or topic
+  - *Output*: Comprehensive research report using multiple LLMs
+
+- **✅ FactChecker** - `check_facts`
+  - *Input*: Content with factual claims
+  - *Output*: Fact-check results with confidence scores
+
+### **Claude Desktop Integration**
+
+1. **Add to Claude Desktop config** (`~/Library/Application Support/Claude/claude_desktop_config.json` on macOS):
+
+```json
+{
+  "mcpServers": {
+    "embabel-kotlin-agents": {
+      "command": "/path/to/embabel-agent-examples/scripts/kotlin/mcp_server.sh",
+      "env": {
+        "OPENAI_API_KEY": "your_key_here",
+        "OMDB_API_KEY": "your_omdb_key",
+        "X_RAPIDAPI_KEY": "your_rapidapi_key"
+      }
+    }
+  }
+}
+```
+
+2. **Restart Claude Desktop**
+
+3. **Use agents in conversation**:
+   - "Can you find some horoscope news for Alice who is a Gemini?"
+   - "Research the latest developments in renewable energy"
+   - "Suggest movies for someone who loves sci-fi and has Netflix"
+
+### **MCP Server Benefits**
+
+- **🔄 Seamless Integration** - Agents work directly in Claude conversations
+- **🎯 Domain Expertise** - Specialized agents for specific tasks
+- **🛠️ Tool Composition** - Combine multiple agents in complex workflows
+- **🔒 Secure Access** - MCP handles authentication and sandboxing
+- **📈 Scalable** - Add new agents without changing client configuration
+
+### **Custom MCP Configuration**
+
+You can customize which agents are exposed via environment variables:
+
+```bash
+# Enable specific agents only
+export MCP_ENABLED_AGENTS="StarNewsFinder,MovieFinder"
+
+# Set custom MCP server port  
+export MCP_SERVER_PORT=3001
+
+# Configure agent timeouts
+export MCP_AGENT_TIMEOUT=30000
+
+./mcp_server.sh
 ```
 
 ---
