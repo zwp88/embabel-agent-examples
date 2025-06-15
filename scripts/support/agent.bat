@@ -1,10 +1,8 @@
 @echo off
 setlocal
 
-
 set SCRIPT_DIR=%~dp0
 set ENV_SCRIPT=%SCRIPT_DIR%check_env.bat
-set SPRING_PROFILES_ACTIVE=shell,starwars,docker-desktop
 
 call %SCRIPT_DIR%\check_env.bat
 
@@ -21,6 +19,6 @@ if not defined AGENT_APPLICATION (
 
 set POM_FILE=%AGENT_APPLICATION%\pom.xml
 
-cmd /c mvn -U -f %POM_FILE% -Dmaven.test.skip=true spring-boot:run
+cmd /c ..\..\mvnw -U -f %POM_FILE% -Dmaven.test.skip=true spring-boot:run
 
 endlocal

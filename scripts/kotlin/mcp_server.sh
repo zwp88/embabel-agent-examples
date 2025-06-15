@@ -3,4 +3,4 @@
 export AGENT_APPLICATION=../../examples-kotlin
 export SPRING_PROFILES_ACTIVE=web,severance
 
-../support/agent_env.sh
+../support/agent.sh

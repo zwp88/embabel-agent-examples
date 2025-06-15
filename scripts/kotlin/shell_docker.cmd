@@ -2,7 +2,8 @@
 setlocal
 
 set AGENT_APPLICATION=..\..\examples-kotlin
+set SPRING_PROFILES_ACTIVE=shell,starwars,docker-desktop
 
-call ..\support\shell_docker_env.bat
+call ..\support\agent.bat
 
 endlocal

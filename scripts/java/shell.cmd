@@ -2,7 +2,8 @@
 setlocal
 
 set AGENT_APPLICATION=..\..\examples-java
+set SPRING_PROFILES_ACTIVE=shell,severance
 
-call ..\support\shell_env.bat
+call ..\support\agent.bat
 
 endlocal
