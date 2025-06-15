@@ -1,9 +1,6 @@
 #!/usr/bin/env bash
 
-../support/check_env.sh
-
-cd ../../examples-kotlin
-
+export AGENT_APPLICATION=../../examples-kotlin
 export SPRING_PROFILES_ACTIVE=web,severance
 
-mvn -P agent-examples-kotlin -Dmaven.test.skip=true spring-boot:run
+../support/agent_env.sh
