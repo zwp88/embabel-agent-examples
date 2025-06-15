@@ -1,9 +1,6 @@
 #!/usr/bin/env bash
 
-./support/check_env.sh
+export AGENT_APPLICATION=../../examples-kotlin
+export SPRING_PROFILES_ACTIVE=shell,severance
 
-cd ../../examples-kotlin
-
-export SPRING_PROFILES_ACTIVE=shell,starwars,docker-desktop
-
-mvn -P agent-examples-kotlin -Dmaven.test.skip=true spring-boot:run
+../support/agent_env.sh

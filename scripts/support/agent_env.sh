@@ -3,7 +3,6 @@
 # Get the directory where this script is located
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 ENV_SCRIPT="$SCRIPT_DIR/check_env.sh"
-export SPRING_PROFILES_ACTIVE="shell,severance"
 
 # Call the environment check script
 if [ -f "$ENV_SCRIPT" ]; then
@@ -33,4 +32,4 @@ if [ ! -f "$POM_FILE" ]; then
 fi
 
 # Run Maven Spring Boot application
-mvn -U -f "$POM_FILE" -Dmaven.test.skip=true spring-boot:run
+../../mvnw -U -f "$POM_FILE" -Dmaven.test.skip=true spring-boot:run
