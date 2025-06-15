@@ -1,239 +1,184 @@
 # 🤖 Embabel Agent Examples
 
-A comprehensive collection of intelligent agents demonstrating the power of the [Embabel Agent Framework](https://github.com/embabel/embabel-agent) for building agentic AI workflows in Java and Kotlin.
-
-## 🌟 What Are Agentic Workflows?
-
-Think of agents as **intelligent consultants** that can:
-- 🔍 Research topics using web tools
-- 🎭 Make decisions based on context
-- 🔄 Execute multi-step workflows
-- 🤝 Collaborate with other agents
-- 🎯 Self-improve through critique and iteration
-
-## 📁 Project Structure
-
-```
-embabel-agent-examples/
-├── examples-common/          # Shared utilities and models
-├── examples-java/           # Java agent implementations  
-├── examples-kotlin/         # Kotlin agent implementations
-├── scripts/                 # Startup scripts for running agents
-│   ├── kotlin/             # Kotlin-specific startup scripts
-│   ├── java/               # Java-specific startup scripts  
-│   └── support/            # Environment validation scripts
-└── pom.xml                 # Maven parent configuration
-```
+Learn agentic AI development with **Spring Framework** and **Kotlin/Java**. These examples demonstrate building intelligent agents that can plan, execute workflows, use tools, and interact with humans.
 
 ## 🚀 Quick Start
 
 ### Prerequisites
+- **Java 21+**
+- **Maven 3.9+** 
+- **API Key** (at least one): [OpenAI](https://platform.openai.com/api-keys) or [Anthropic](https://www.anthropic.com/api)
 
-- **Java 21** or newer
-- **Maven 3.9+**
-- [Embabel Agent Parent Project](https://github.com/embabel/embabel-agent) built locally
-- **At least one LLM API key** (OpenAI or Anthropic)
-
-### 1. Build the Project
-
+### 1. Clone & Build
 ```bash
-# Build all examples
+git clone <repository-url>
+cd embabel-agent-examples
 mvn clean install
-
-# Or build specific module
-cd examples-kotlin && mvn clean install
 ```
 
-### 2. Set Up API Keys
-
-You need **at least one** of these API keys:
-
+### 2. Set API Keys
 ```bash
-# OpenAI (recommended for beginners)
-export OPENAI_API_KEY="your_openai_key"           # Get from https://platform.openai.com/api-keys
+# Required (choose one or both)
+export OPENAI_API_KEY="your_openai_key"
+export ANTHROPIC_API_KEY="your_anthropic_key"
 
-# Anthropic Claude (advanced features)
-export ANTHROPIC_API_KEY="your_anthropic_key"     # Get from https://www.anthropic.com/api
-
-# Optional: For Movie and Research agents
-export OMDB_API_KEY="your_omdb_key"               # Get from http://www.omdbapi.com/
-export X_RAPIDAPI_KEY="your_rapidapi_key"         # Get from https://rapidapi.com/
+# Optional (for MovieFinder example)
+export OMDB_API_KEY="your_omdb_key"           # http://www.omdbapi.com/
+export X_RAPIDAPI_KEY="your_rapidapi_key"     # https://rapidapi.com/
 ```
 
-### 3. Run the Agent Shell
+### 3. Run Examples
 
-#### Unix/Linux/macOS (Kotlin Examples)
+#### **Kotlin Examples** (Recommended)
 ```bash
 cd scripts/kotlin
-./shell.sh
+./shell.sh          # Unix/Linux/macOS
+shell.cmd            # Windows
 ```
 
-#### Windows (Kotlin Examples)
-```cmd
-cd scripts\kotlin
-shell.cmd
-```
-
-#### For Java Examples
+#### **Java Examples**
 ```bash
 cd scripts/java
-./shell.sh    # Unix/Linux/macOS
-shell.cmd     # Windows
+./shell.sh          # Unix/Linux/macOS  
+shell.cmd            # Windows
 ```
-
-The environment check script will verify your API keys and warn you about missing dependencies.
-
-## 🏗️ Architecture Overview
-
-Each agent follows the **Embabel Agentic Pattern**:
-
-```kotlin
-@Agent(description = "Agent purpose")
-class MyAgent {
-    
-    @Action(pre = ["condition"], post = ["result"])
-    fun performTask(input: Input, context: OperationContext): Output {
-        // Agent logic here
-    }
-    
-    @Condition(name = "condition")
-    fun checkCondition(context: OperationContext): Boolean = true
-    
-    @AchievesGoal(description = "Final goal")
-    fun completeTask(result: Output): FinalResult = result
-}
-```
-
-## 📚 Examples Library
 
 ---
 
-## 🔧 Shared Utilities
+## 📚 Examples by Learning Level
 
-### InMemoryCrudRepository
+### 🌟 **Beginner: Horoscope News Agent**
+> **Available in:** Java & Kotlin | **Concept:** Basic Agent Workflow
 
-The `examples-common` module provides a thread-safe, in-memory implementation of Spring Data's `CrudRepository`:
+A fun introduction to agent development that finds personalized news based on someone's star sign.
 
+**What It Teaches:**
+- 📋 **Action-based workflows** with `@Action` annotations
+- 🔍 **Data extraction** from user input using LLMs
+- 🌐 **Web tool integration** for finding news stories
+- 📝 **Content generation** with personality and context
+- 🎯 **Goal achievement** with `@AchievesGoal`
+
+**How It Works:**
+1. Extract person's name from user input
+2. Get their star sign (via form if needed)
+3. Retrieve daily horoscope
+4. Search web for relevant news stories
+5. Create amusing writeup combining horoscope + news
+
+**Try It:**
+```bash
+# Start the agent shell, then type:
+"Find horoscope news for Alice who is a Gemini"
+```
+
+**Code Comparison:**
+- **Kotlin:** `examples-kotlin/src/main/kotlin/com/embabel/example/horoscope/StarNewsFinder.kt`
+- **Java:** `examples-java/src/main/java/com/embabel/example/horoscope/StarNewsFinder.java`
+
+**Key Patterns:**
 ```kotlin
-open class InMemoryCrudRepository<T : Any>(
-    private val idGetter: (T) -> String?,
-    private val idSetter: ((T, String) -> T),
-) : CrudRepository<T, String> {
+@Agent(description = "Find news based on a person's star sign")
+class StarNewsFinder {
     
-    private val storage = ConcurrentHashMap<String, T>()
+    @Action
+    fun extractPerson(userInput: UserInput): Person?
     
-    // Full CRUD operations with UUID generation
-    // Thread-safe concurrent access
-    // Perfect for demos and testing
+    @Action(toolGroups = [CoreToolGroups.WEB])
+    fun findNewsStories(person: StarPerson, horoscope: Horoscope): RelevantNewsStories
+    
+    @AchievesGoal(description = "Create an amusing writeup")
+    @Action
+    fun starNewsWriteup(/* params */): Writeup
 }
 ```
 
-**Use Cases:**
-- 🎯 **Movie Buffs Storage** - Stores user preferences and ratings
-- 📊 **Demo Data** - Quick setup without database dependencies  
-- 🧪 **Testing** - Isolated test environments
-- 🔄 **Prototyping** - Rapid development without persistence setup
+---
 
-### HoroscopeService
+### 🎬 **Advanced: Movie Recommendation Engine**
+> **Available in:** Kotlin | **Concept:** Complex Domain-Driven Workflows
 
-Shared horoscope generation service used across both Java and Kotlin implementations:
+An intelligent movie recommendation agent that analyzes taste profiles and suggests streaming-available movies.
 
-```kotlin
-// Common service for astrological predictions
-// Provides consistent horoscope data across agents
-// Supports multiple astrological systems
-```
+**What It Teaches:**
+- 🏗️ **Domain-Driven Design** with rich domain models
+- 🔄 **Complex workflows** with conditions and retries
+- 📊 **Spring Data integration** with repositories
+- 🎭 **Persona-based prompting** for creative content
+- 🛠️ **Multiple API integration** (OMDB, streaming services)
+- 📈 **Progress tracking** and event publishing
+- 🤝 **Human-in-the-loop** confirmations
 
-**Location:** `examples-common/src/main/kotlin/com/embabel/example/`
-
-## 🎬 Movie Recommendation System
-
-**Language:** Kotlin | **Domain:** Entertainment | **Complexity:** Advanced
-
-### What It Does
-An intelligent movie consultant that analyzes your taste profile, researches current trends, and recommends personalized movies available on your streaming services.
-
-### Key Features
-- 🎭 **Taste Profile Analysis** - Uses AI to understand your movie preferences
-- 📰 **Contextual Research** - Finds relevant news for topical recommendations  
-- 🔍 **Smart Filtering** - Only suggests movies you haven't seen
-- 📺 **Streaming Integration** - Checks availability on your services
-- ✍️ **Personalized Writeups** - Creates Roger Ebert-style recommendations
-
-### Agent Workflow
-```mermaid
-graph LR
-    A[User Input] --> B[Find MovieBuff]
-    B --> C[Analyze Taste Profile]
-    C --> D[Research News Stories]
-    D --> E[Suggest Movies]
-    E --> F[Check Streaming]
-    F --> G[Write Recommendations]
-```
-
-### How to Use
-```bash
-# In the agent shell
-movie-finder recommend movies for alex based on recent sci-fi trends
-```
-
-### Domain Models
+**Domain Model:**
 ```kotlin
 data class MovieBuff(
-    val name: String,
+    override val name: String,
     val movieRatings: List<MovieRating>,
     val countryCode: String,
     val streamingServices: List<String>
 ) : Person
 
-data class StreamableMovie(
-    val movie: MovieResponse,
-    val availableStreamingOptions: List<StreamingOption>
+data class DecoratedMovieBuff(
+    val movieBuff: MovieBuff,
+    val tasteProfile: String  // AI-generated analysis
 )
 ```
 
+**How It Works:**
+1. Find MovieBuff from repository (with confirmation)
+2. Analyze their taste profile using AI
+3. Research current news for inspiration
+4. Generate movie suggestions (excluding seen movies)
+5. Filter by streaming availability
+6. Create Roger Ebert-style writeup
+
+**Try It:**
+```bash
+# Requires OMDB_API_KEY and X_RAPIDAPI_KEY
+"Suggest movies for Rod tonight"
+```
+
+**Key Spring Patterns:**
+```kotlin
+@ConfigurationProperties(prefix = "embabel.examples.moviefinder")
+data class MovieFinderConfig(
+    val suggestionCount: Int = 5,
+    val suggesterPersona: Persona = Roger,
+    val model: String = OpenAiModels.GPT_41_MINI
+)
+
+interface MovieBuffRepository : CrudRepository<MovieBuff, String>
+```
+
+**Advanced Workflow Control:**
+```kotlin
+@Action(
+    post = [HAVE_ENOUGH_MOVIES],  // Condition check
+    canRerun = true               // Retry if needed
+)
+fun suggestMovies(/* params */): StreamableMovies
+
+@Condition(name = HAVE_ENOUGH_MOVIES)
+fun haveEnoughMovies(context: OperationContext): Boolean
+```
+
 **Location:** `examples-kotlin/src/main/kotlin/com/embabel/example/movie/`
-**Requirements:** `OMDB_API_KEY`, `X_RAPIDAPI_KEY`
 
 ---
 
-## 🔬 Multi-Model Research Agent
+### 🔬 **Expert: Multi-LLM Research Agent**
+> **Available in:** Kotlin | **Concept:** Self-Improving AI Workflows
 
-**Language:** Kotlin | **Domain:** Research | **Complexity:** Expert
+A sophisticated research agent using multiple AI models with self-critique capabilities.
 
-### What It Does
-A sophisticated research assistant that uses multiple AI models (GPT-4 and Claude) to conduct comprehensive research with self-critique and improvement.
+**What It Teaches:**
+- 🧠 **Multi-model consensus** (GPT-4 + Claude working together)
+- 🔍 **Self-improvement loops** with critique and retry
+- ⚙️ **Configuration-driven behavior** with Spring Boot properties
+- 🌊 **Parallel processing** of research tasks
+- 📝 **Quality control** through automated review
 
-### Key Features
-- 🧠 **Multi-Model Approach** - Leverages both OpenAI and Anthropic models
-- 🔄 **Self-Improvement** - Critiques its own work and redoes research if needed
-- ⚡ **Parallel Execution** - Runs multiple research tasks concurrently
-- 🎯 **Smart Categorization** - Adapts approach for questions vs. discussions
-- 🌐 **Web Integration** - Uses advanced browser automation tools
-
-### Agent Workflow
-```mermaid
-graph TD
-    A[User Query] --> B[Categorize Input]
-    B --> C[Research with GPT-4]
-    B --> D[Research with Claude]
-    C --> E[Merge Reports]
-    D --> E
-    E --> F[Critique Report]
-    F --> G{Satisfactory?}
-    G -->|No| H[Redo Research]
-    G -->|Yes| I[Final Report]
-    H --> E
-```
-
-### How to Use
-```bash
-# In the agent shell
-research "What are the latest developments in quantum computing?"
-research "Compare renewable energy policies across EU countries"
-```
-
-### Configuration
+**Architecture:**
 ```kotlin
 @ConfigurationProperties(prefix = "embabel.examples.researcher")
 data class ResearcherProperties(
@@ -243,369 +188,214 @@ data class ResearcherProperties(
 )
 ```
 
+**Self-Improvement Pattern:**
+```kotlin
+@Action(outputBinding = "gpt4Report")
+fun researchWithGpt4(/* params */): SingleLlmReport
+
+@Action(outputBinding = "claudeReport") 
+fun researchWithClaude(/* params */): SingleLlmReport
+
+@Action(outputBinding = "mergedReport")
+fun mergeReports(gpt4: SingleLlmReport, claude: SingleLlmReport): ResearchReport
+
+@Action
+fun critiqueReport(report: ResearchReport): Critique
+
+@AchievesGoal(description = "Completes research with quality assurance")
+fun acceptReport(report: ResearchReport, critique: Critique): ResearchReport
+```
+
+**Try It:**
+```bash
+"Research the latest developments in renewable energy adoption"
+```
+
 **Location:** `examples-kotlin/src/main/kotlin/com/embabel/example/dogfood/research/`
 
 ---
 
-## 🌟 Horoscope Service
+### ✅ **Expert: Fact-Checking Agent (DSL Style)**
+> **Available in:** Kotlin | **Concept:** Functional Agent Construction
 
-**Language:** Java & Kotlin | **Domain:** Entertainment | **Complexity:** Beginner
+A fact-verification agent built using Embabel's functional DSL approach instead of annotations.
 
-### What It Does
-A fun astrological agent that provides personalized horoscope readings with star news integration.
+**What It Teaches:**
+- 🔧 **Functional DSL construction** for agents
+- 🔍 **Parallel fact verification** across multiple claims
+- 📊 **Confidence scoring** and source trust evaluation
+- 🌐 **Web research integration** for verification
+- ⚡ **Functional programming patterns** in agent design
 
-### Key Features (Java Implementation)
-```java
-@Agent(description = "Find news based on a person's star sign")
-public class StarNewsFinder {
-    
-    @Action
-    public PersonImpl extractPerson(UserInput userInput) {
-        // Extract person details from user input
-    }
-    
-    @Action(toolGroups = {CoreToolGroups.WEB})
-    public RelevantNewsStories findNewsStories(StarPerson person, Horoscope horoscope) {
-        // Use web tools to find relevant news based on horoscope
-    }
-    
-    @AchievesGoal(description = "Write an amusing writeup for the target person")
-    @Action
-    public Writeup writeup(StarPerson person, RelevantNewsStories relevantNewsStories) {
-        // Generate entertaining writeup combining horoscope and news
-    }
-}
-```
-
-### Key Features (Kotlin Implementation)
+**DSL Construction:**
 ```kotlin
-@Agent(description = "Find star news and horoscopes")
-class StarNewsFinder {
+fun factCheckerAgent(llms: List<LlmOptions>, properties: FactCheckerProperties) = 
+agent(name = "FactChecker", description = "Check content for factual accuracy") {
     
-    @Action(toolGroups = [CoreToolGroups.WEB])
-    fun findStarNews(starPerson: StarPerson): RelevantNewsStories
+    flow {
+        aggregate<UserInput, FactualAssertions, RationalizedFactualAssertions>(
+            transforms = llms.map { llm ->
+                { context -> /* extract assertions with this LLM */ }
+            },
+            merge = { list, context -> /* rationalize overlapping claims */ }
+        ).parallelize()
+    }
+    
+    transformation<RationalizedFactualAssertions, FactCheck> { 
+        /* parallel fact-checking */
+    }
 }
 ```
 
-### How to Use
-```bash
-# In the agent shell
-horoscope for Leo born on August 15th
-star-news for Virgo this week
+**Domain Model:**
+```kotlin
+data class FactualAssertion(
+    val claim: String,
+    val reasoning: String
+)
+
+data class AssertionCheck(
+    val assertion: FactualAssertion,
+    val isFactual: Boolean,
+    val confidence: Double,
+    val sources: List<String>
+)
 ```
 
-**Locations:** 
-- Java: `examples-java/src/main/java/com/embabel/example/horoscope/`
-- Kotlin: `examples-kotlin/src/main/kotlin/com/embabel/example/horoscope/`
-
----
-
-## ✅ Fact Checking Agent
-
-**Language:** Kotlin | **Domain:** Verification | **Complexity:** Advanced
-
-### What It Does
-An intelligent fact-checker that extracts claims from content and verifies them using web research.
-
-### Key Features
-- 📝 **Claim Extraction** - Identifies factual assertions in text
-- 🔍 **Web Verification** - Researches claims using reliable sources
-- ⚖️ **Evidence Evaluation** - Assesses the credibility of sources
-- 📊 **Detailed Reports** - Provides reasoning for each fact-check
-
-### How to Use
+**Try It:**
 ```bash
-# Check facts in a document or statement
-fact-check "The latest climate change statistics show..."
+"Check these facts: The Earth is flat. Paris is the capital of France."
 ```
 
 **Location:** `examples-kotlin/src/main/kotlin/com/embabel/example/dogfood/factchecker/`
 
-## 🧠 Core Framework Patterns
+---
 
-These examples demonstrate key patterns you'll use when building with the Embabel Agent framework:
+## 🛠️ Core Concepts You'll Learn
 
-### Agent Workflow Pattern
-```kotlin
-@Agent(description = "Agent purpose")
-class MyAgent {
-    
-    @Action(pre = ["condition"], post = ["result"])
-    fun performTask(input: Input, context: OperationContext): Output {
-        // Agent logic here
-    }
-    
-    @Condition(name = "condition")
-    fun checkCondition(context: OperationContext): Boolean = true
-    
-    @AchievesGoal(description = "Final goal")
-    fun completeTask(result: Output): FinalResult = result
-}
+### **Spring Framework Integration**
+- **Dependency Injection:** Constructor-based injection with agents as Spring beans
+- **Configuration Properties:** Type-safe configuration with `@ConfigurationProperties`
+- **Conditional Beans:** Environment-specific components with `@ConditionalOnBean`
+- **Repository Pattern:** Spring Data integration for domain entities
+- **Profile Management:** Environment-specific behavior activation
+
+### **Modern Kotlin Features**
+- **Data Classes:** Rich domain models with computed properties
+- **Type Aliases:** Domain-specific types (`typealias OneThroughTen = Int`)
+- **Extension Functions:** Enhanced functionality for existing types
+- **Delegation:** Clean composition patterns
+- **DSL Construction:** Functional agent building
+- **Coroutines:** Parallel execution with structured concurrency
+
+### **Agent Design Patterns**
+- **Workflow Orchestration:** Multi-step processes with `@Action` chains
+- **Blackboard Pattern:** Shared workspace for data between actions
+- **Human-in-the-Loop:** User confirmations and form submissions
+- **Self-Improvement:** Critique and retry loops for quality
+- **Multi-Model Consensus:** Combining results from different LLMs
+- **Condition-Based Flow:** Workflow control with `@Condition`
+- **Progress Tracking:** Event publishing for monitoring
+
+---
+
+## 🔧 Running Specific Examples
+
+### **Interactive Shell Mode** (Default)
+```bash
+cd scripts/kotlin && ./shell.sh
+# or
+cd scripts/java && ./shell.sh
 ```
 
-### Multi-Model Research Pattern
-```kotlin
-// Parallel execution with different models
-val researchReports = topics.parallelMap(context) { topic ->
-    context.promptRunner(llm = gpt4Model).create<ResearchReport>(prompt)
-}
+### **Programmatic Execution**
+```bash
+# Kotlin examples
+cd examples-kotlin
+export SPRING_PROFILES_ACTIVE=shell,starwars,docker-desktop
+mvn spring-boot:run
+
+# Java examples  
+cd examples-java
+export SPRING_PROFILES_ACTIVE=shell,starwars,docker-desktop
+mvn spring-boot:run
 ```
 
-### Human-in-the-Loop Pattern
-```kotlin
-@Action
-fun confirmAction(entity: Entity): Entity? {
-    return if (config.requireConfirmation) {
-        ConfirmationRequest(entity, "Please confirm: ${entity.name}")
-    } else entity
-}
+### **Testing**
+```bash
+# Run all tests
+mvn test
+
+# Module-specific tests
+cd examples-kotlin && mvn test
+cd examples-java && mvn test
 ```
 
 ---
 
-## 🔧 API Configuration
+## 🎯 Getting Started Recommendations
 
-### Required API Keys
+### **New to Agents?**
+1. Start with **Horoscope News Agent** (Java or Kotlin)
+2. Compare the Java vs Kotlin implementations
+3. Experiment with different prompts and see how the agent plans different workflows
 
-**At least one LLM provider is required:**
+### **Spring Developer?**
+1. Examine the **Movie Finder** for advanced Spring patterns
+2. Look at the configuration classes and repository integration
+3. Study the domain model design and service composition
 
-| Service | Purpose | Get Key From | Environment Variable |
-|---------|---------|-------------|-------------------|
-| OpenAI | GPT models (recommended) | https://platform.openai.com/api-keys | `OPENAI_API_KEY` |
-| Anthropic | Claude models | https://www.anthropic.com/api | `ANTHROPIC_API_KEY` |
+### **Kotlin Enthusiast?**
+1. Start with **Movie Finder** for advanced Kotlin features
+2. Progress to **Researcher** for multi-model patterns
+3. Explore **Fact Checker** for functional DSL approaches
 
-**Optional for enhanced features:**
+### **AI/ML Developer?**
+1. Study prompt engineering techniques in any example
+2. Examine the **Researcher** for multi-model consensus patterns
+3. Look at **Fact Checker** for confidence scoring and source evaluation
 
-| Service | Purpose | Get Key From | Environment Variable |
-|---------|---------|-------------|-------------------|
-| OMDB | Movie information | http://www.omdbapi.com/ | `OMDB_API_KEY` |
-| RapidAPI | Streaming availability | https://rapidapi.com/ | `X_RAPIDAPI_KEY` |
+---
 
-### Setting Up API Keys
+## 🚨 Common Issues & Solutions
 
-#### Linux/macOS (.bashrc or .zshrc)
-```bash
-# Required (at least one)
-export OPENAI_API_KEY="your_openai_key_here"
-export ANTHROPIC_API_KEY="your_anthropic_key_here"
+| Problem | Solution |
+|---------|----------|
+| **"No API keys found"** | Set `OPENAI_API_KEY` or `ANTHROPIC_API_KEY` |
+| **Movie agent fails** | Set `OMDB_API_KEY` and `X_RAPIDAPI_KEY` |
+| **Wrong examples load** | Use correct script: `kotlin/shell.sh` vs `java/shell.sh` |
+| **Build failures** | Run `mvn clean install` from project root |
+| **Tests fail** | Check API keys are set in test environment |
 
-# Optional for Movie agent
-export OMDB_API_KEY="your_omdb_key_here"
-export X_RAPIDAPI_KEY="your_rapidapi_key_here"
+---
+
+## 📁 Project Structure
+
+```
+embabel-agent-examples/
+├── examples-kotlin/                 # 🏆 Kotlin implementations
+│   └── src/main/kotlin/com/embabel/example/
+│       ├── horoscope/              # 🌟 Beginner: Star news agent
+│       ├── movie/                  # 🎬 Advanced: Movie recommender  
+│       └── dogfood/
+│           ├── research/           # 🔬 Expert: Multi-LLM researcher
+│           └── factchecker/        # ✅ Expert: Fact checker (DSL)
+│
+├── examples-java/                   # ☕ Java implementations  
+│   └── src/main/java/com/embabel/example/
+│       └── horoscope/              # 🌟 Beginner: Star news agent
+│
+├── examples-common/                 # 🔧 Shared services & utilities
+├── scripts/                        # 🚀 Quick-start scripts
+│   ├── kotlin/shell.sh             # Launch Kotlin examples
+│   └── java/shell.sh               # Launch Java examples
+└── pom.xml                         # Maven configuration
 ```
 
-#### Windows (Environment Variables)
-```cmd
-setx OPENAI_API_KEY "your_openai_key_here"
-setx ANTHROPIC_API_KEY "your_anthropic_key_here"
-setx OMDB_API_KEY "your_omdb_key_here"
-setx X_RAPIDAPI_KEY "your_rapidapi_key_here"
-```
-
-#### Docker
-```bash
-docker run -e OPENAI_API_KEY=your_key -e ANTHROPIC_API_KEY=your_key embabel-agent
-```
-
-The startup scripts automatically validate your environment and will warn you about missing API keys.
-
-## 🏃‍♂️ Running Specific Examples
-
-### Maven Profiles
-
-The project uses Maven profiles to control which examples are loaded:
-
-- **`agent-examples-kotlin`** - Loads Kotlin agents (default)
-- **`agent-examples-java`** - Loads Java agents
-
-### Using the Startup Scripts
-
-#### For Kotlin Examples (Default)
-```bash
-cd scripts/kotlin
-./shell.sh          # Unix/Linux/macOS
-shell.cmd            # Windows
-shell_docker.sh      # Unix with Docker Desktop profile
-shell_docker.cmd     # Windows with Docker Desktop profile
-```
-
-#### For Java Examples
-```bash
-cd scripts/java
-./shell.sh          # Unix/Linux/macOS
-shell.cmd            # Windows
-```
-
-#### MCP Server Mode
-```bash
-cd scripts/kotlin
-./mcp_server.sh      # Unix/Linux/macOS
-mcp_server.cmd       # Windows
-```
-
-### Manual Maven Execution
-
-#### Kotlin Examples
-```bash
-cd examples-kotlin
-export SPRING_PROFILES_ACTIVE=shell,starwars,docker-desktop
-mvn -P agent-examples-kotlin -Dmaven.test.skip=true spring-boot:run
-```
-
-#### Java Examples  
-```bash
-cd examples-java
-export SPRING_PROFILES_ACTIVE=shell,starwars,docker-desktop
-mvn -P agent-examples-java -Dmaven.test.skip=true spring-boot:run
-```
-
-### IDE Setup (IntelliJ IDEA)
-
-1. Open Maven view: **View → Tool Windows → Maven**
-2. Expand **Profiles** section
-3. Check `agent-examples-kotlin` or `agent-examples-java`
-4. Run the appropriate `AgentExampleApplication` main class
-
-![Maven Profile Selection](https://github.com/user-attachments/assets/8b3b9a98-c1df-490f-97aa-b12e20b974de)
-
-## 🧪 Testing
-
-### Run All Tests
-```bash
-mvn test
-```
-
-### Run Specific Module Tests
-```bash
-cd examples-kotlin
-mvn test
-```
-
-### Example Test Classes
-- `MovieFinderTest.kt` - Unit tests for movie recommendations
-- `StarNewsFinderTest.kt` - Tests for horoscope news integration
-- `ResearcherTest.kt` - Tests for research capabilities
-
-## 🛠️ Development Tips
-
-### Key Kotlin Features Demonstrated
-
-- **Data Classes with Behavior** - Rich domain models with computed properties
-- **Type Aliases** - Domain-specific types (`typealias OneThroughTen = Int`)
-- **Extension Functions** - Enhanced functionality for existing types
-- **Coroutines** - Parallel execution (`parallelMap`)
-- **Delegation** - Clean composition patterns (`PromptContributor by coStar`)
-- **Sealed Classes** - Type-safe enumeration for categories and states
-
-### Spring Framework Patterns
-
-- **Configuration Properties** - Type-safe configuration with `@ConfigurationProperties`
-- **Conditional Beans** - Environment-specific components with `@ConditionalOnBean`
-- **Component Scanning** - Automatic agent discovery with `@Agent`
-- **Shell Integration** - CLI interfaces with Spring Shell
-
-### Agent Design Patterns
-
-- **Workflow Orchestration** - Multi-step processes with `@Action` chains
-- **Blackboard Pattern** - Shared data workspace between actions
-- **Human-in-the-Loop** - Confirmations and approvals with `ConfirmationRequest`
-- **Self-Improvement** - Critique and retry loops in research workflows
-- **Multi-Model Consensus** - Combining results from different LLMs
-
-## 🚨 Troubleshooting
-
-### Common Issues
-
-#### "No LLM API Keys" Error
-```bash
-# Error: Both OPENAI_API_KEY and ANTHROPIC_API_KEY are missing
-# Solution: Set at least one API key
-export OPENAI_API_KEY="your_key_here"
-# or
-export ANTHROPIC_API_KEY="your_key_here"
-```
-
-#### "Agent not found" Error
-```bash
-# Ensure correct Maven profile is active
-cd scripts/kotlin && ./shell.sh  # For Kotlin
-cd scripts/java && ./shell.sh    # For Java
-```
-
-#### Movie Agent "API Key Missing" Error
-```bash
-# Movie agent requires additional API keys
-export OMDB_API_KEY="your_omdb_key"
-export X_RAPIDAPI_KEY="your_rapidapi_key"
-```
-
-#### Missing Dependencies
-```bash
-# Clean and rebuild
-mvn clean install
-
-# Check parent project is built
-cd ../embabel-agent && mvn clean install
-```
-
-#### Memory Issues
-```bash
-# Increase Maven memory
-export MAVEN_OPTS="-Xmx2048m -XX:MaxPermSize=512m"
-```
-
-#### Environment Validation
-```bash
-# Run environment check manually
-cd scripts/support
-./check_env.sh
-```
-
-### Debug Mode
-
-Enable detailed logging by setting environment variables:
-```bash
-export SPRING_PROFILES_ACTIVE=shell,starwars,docker-desktop,debug
-```
-
-Or add to your IDE configuration:
-```yaml
-# application.yml
-logging:
-  level:
-    com.embabel: DEBUG
-    org.springframework: INFO
-    com.embabel.example.movie: TRACE      # For movie agent debugging
-    com.embabel.example.dogfood: TRACE    # For research/factchecker debugging
-```
-
-## 🤝 Contributing
-
-1. **Fork** the repository
-2. **Create** a feature branch (`git checkout -b feature/amazing-agent`)
-3. **Commit** your changes (`git commit -m 'Add amazing agent'`)
-4. **Push** to the branch (`git push origin feature/amazing-agent`)
-5. **Open** a Pull Request
-
-### Agent Development Guidelines
-
-- Use `@Agent` annotation for agent classes
-- Implement clear `@Action` methods with pre/post conditions
-- Add comprehensive documentation and examples
-- Include unit tests for core functionality
-- Follow domain-driven design principles
+---
 
 ## 📄 License
 
 Licensed under the Apache License 2.0. See [LICENSE](LICENSE) for details.
 
-## 🔗 Links
-
-- [Embabel Agent Framework](https://github.com/embabel/embabel-agent)
-- [Contributing Guidelines](https://github.com/embabel/embabel-agent/blob/main/CONTRIBUTING.md)
-- [Documentation](https://embabel.com/docs)
-- [Community Discord](https://discord.gg/embabel)
-
----
-
-**Happy Agent Building! 🚀**
+**🎉 Happy coding with Spring Framework and agentic AI!**
