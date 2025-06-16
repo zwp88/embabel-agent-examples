@@ -14,10 +14,9 @@
 
     
     <dependencies>
-        <!-- Main Dependencies -->
         <dependency>
             <groupId>com.embabel.agent</groupId>
-            <artifactId>embabel-agent-api</artifactId>
+            <artifactId>embabel-agent-starter</artifactId>
         </dependency>
 
         <dependency>

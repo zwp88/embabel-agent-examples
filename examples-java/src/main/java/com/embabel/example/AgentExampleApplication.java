@@ -18,20 +18,8 @@ package com.embabel.example;
 import com.embabel.common.util.WinUtils;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 
-@SpringBootApplication(
-    scanBasePackages = {
-        "com.embabel.agent",
-        "com.embabel.template"
-    }
-)
-@ConfigurationPropertiesScan(
-    basePackages = {
-        "com.embabel.agent",
-        "com.embabel.template"
-    }
-)
+@SpringBootApplication
 public class AgentExampleApplication {
     
     static {

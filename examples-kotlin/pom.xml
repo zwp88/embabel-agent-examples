@@ -12,10 +12,10 @@
     <description>Agent Examples for Kotlin Developers</description>
 
     <dependencies>
-        <!-- Main Dependencies -->
+
         <dependency>
             <groupId>com.embabel.agent</groupId>
-            <artifactId>embabel-agent-api</artifactId>
+            <artifactId>embabel-agent-starter</artifactId>
         </dependency>
 
         <dependency>
@@ -24,7 +24,6 @@
             <version>${project.version}</version>
         </dependency>
 
-        <!-- Test Dependencies -->
         <dependency>
             <groupId>com.embabel.agent</groupId>
             <artifactId>embabel-agent-test</artifactId>
