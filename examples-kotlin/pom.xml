@@ -8,7 +8,7 @@
         <version>0.1.0-SNAPSHOT</version>
     </parent>
     <artifactId>example-agent-kotlin</artifactId>
-    <name></name>
+    <name>Embabel Agent Kotlin Examples</name>
     <description>Agent Examples for Kotlin Developers</description>
 
     <dependencies>
