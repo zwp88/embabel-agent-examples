@@ -17,21 +17,9 @@ package com.embabel.example
 
 import com.embabel.common.util.WinUtils
 import org.springframework.boot.autoconfigure.SpringBootApplication
-import org.springframework.boot.context.properties.ConfigurationPropertiesScan
 import org.springframework.boot.runApplication
 
-@SpringBootApplication(
-    scanBasePackages = [
-        "com.embabel.agent",
-        "com.embabel.template",
-    ]
-)
-@ConfigurationPropertiesScan(
-    basePackages = [
-        "com.embabel.agent",
-        "com.embabel.template",
-    ]
-)
+@SpringBootApplication
 class AgentExampleApplication {
 
     companion object {
