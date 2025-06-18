@@ -28,7 +28,6 @@ import com.embabel.agent.domain.library.PersonImpl;
 import com.embabel.agent.domain.library.RelevantNewsStories;
 import com.embabel.common.ai.model.LlmOptions;
 import com.embabel.common.ai.model.ModelSelectionCriteria;
-import com.embabel.example.horoscope.HoroscopeService;
 import org.springframework.beans.factory.annotation.Value;
 
 import java.util.stream.Collectors;
@@ -54,7 +53,7 @@ public class StarNewsFinder {
     }
 
     @Action
-    public PersonImpl extractPerson(UserInput userInput) {
+    public Person extractPerson(UserInput userInput) {
         return PromptRunner.usingLlm(LlmOptions.fromModel(OpenAiModels.GPT_41)).createObjectIfPossible(
                 """
                         Create a person from this user input, extracting their name:
