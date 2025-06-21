@@ -13,15 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.embabel.example;
+package com.embabel.example
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication
+import org.springframework.boot.runApplication
+import com.embabel.agent.config.annotation.EnableAgentShell
 
 @SpringBootApplication
-public class AgentExampleApplication {
-    
-    public static void main(String[] args) {
-        SpringApplication.run(AgentExampleApplication.class, args);
-    }
+@EnableAgentShell
+class AgentShellApplication
+
+fun main(args: Array<String>) {
+    runApplication<AgentShellApplication>(*args)
 }
