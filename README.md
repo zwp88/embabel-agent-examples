@@ -54,7 +54,7 @@ export X_RAPIDAPI_KEY="your_rapidapi_key"     # https://rapidapi.com/
 
 ### 3. Run Examples
 
-#### **Kotlin Examples** (Recommended)
+#### **Kotlin Examples**
 ```bash
 cd scripts/kotlin
 ./shell.sh          # Unix/Linux/macOS
@@ -174,10 +174,14 @@ A fun introduction to agent development that finds personalized news based on so
 5. Create amusing writeup combining horoscope + news
 
 **Try It:**
+
+Start the agent shell, then type:
+
 ```bash
-# Start the agent shell, then type:
-"Find horoscope news for Alice who is a Gemini"
+x "Find horoscope news for Alice who is a Gemini"
 ```
+
+`x` is short for `execute`, which triggers the agent to run its workflow.
 
 **Code Comparison:**
 - **Kotlin:** `examples-kotlin/src/main/kotlin/com/embabel/example/horoscope/StarNewsFinder.kt`
