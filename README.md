@@ -357,7 +357,7 @@ in separate repositories.
 See:
 
 - [Coding Agent](https://www.github.com/embabel/coding-agent): An open source coding agent
-- [Movie Finder](https://www.github.com/embabel/movie-finder): A movie recommendation engine that takes into account the user's tastes and what's available to them in their country on the streaming services they subscribe to. Uses external APIs and PostgreSQL via JPA. Illustrates a complex workflow where recommendations are generated until enough available movies have been found.
+- [Flicker](https://www.github.com/embabel/flicker): A movie recommendation engine that takes into account the user's tastes and what's available to them in their country on the streaming services they subscribe to. Uses external APIs and PostgreSQL via JPA. Illustrates a complex workflow where recommendations are generated until enough available movies have been found.
 - [Decker](https://www.github.com/embabel/decker): An agent to build presentations using Embabel
 - [Tripper](https://www.github.com/embabel/tripper): Travel planning agent. Uses mapping APIs to find routes and places of interest, and generates a travel itinerary. Performs research on points of interest in parallel.
 
