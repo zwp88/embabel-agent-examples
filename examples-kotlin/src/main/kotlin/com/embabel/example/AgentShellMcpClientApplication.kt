@@ -19,6 +19,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 import com.embabel.agent.config.annotation.EnableAgentShell
 import com.embabel.agent.config.annotation.EnableAgents
+import com.embabel.agent.config.annotation.LoggingThemes
+import com.embabel.agent.config.annotation.McpServers
+import io.modelcontextprotocol.server.McpServer
 
 /**
  * Spring Boot application that runs Embabel agents in interactive shell mode.
@@ -40,8 +43,8 @@ import com.embabel.agent.config.annotation.EnableAgents
 @SpringBootApplication
 @EnableAgentShell
 @EnableAgents(
-    loggingTheme = "severance",
-    mcpClients = ["docker-desktop"]
+    loggingTheme = LoggingThemes.SEVERANCE,
+    mcpServers = [McpServers.DOCKER_DESKTOP],
 )
 class AgentShellMcpClientApplication
 

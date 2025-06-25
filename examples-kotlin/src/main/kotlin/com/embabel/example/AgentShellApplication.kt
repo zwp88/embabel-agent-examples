@@ -19,6 +19,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 import com.embabel.agent.config.annotation.EnableAgentShell
 import com.embabel.agent.config.annotation.EnableAgents
+import com.embabel.agent.config.annotation.LoggingThemes
 
 /**
  * Spring Boot application that runs Embabel agents in interactive shell mode.
@@ -40,7 +41,7 @@ import com.embabel.agent.config.annotation.EnableAgents
 @SpringBootApplication
 @EnableAgentShell
 @EnableAgents(
-    loggingTheme = "starwars"
+    loggingTheme = LoggingThemes.STAR_WARS,
 )
 class AgentShellApplication
 

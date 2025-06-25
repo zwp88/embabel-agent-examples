@@ -128,7 +128,7 @@ embabel:
 ```kotlin
 @SpringBootApplication
 @EnableAgentShell
-@EnableAgents(loggingTheme = "starwars")
+@EnableAgents(loggingTheme = LoggingThemes.STAR_WARS)
 class AgentShellApplication
 ```
 

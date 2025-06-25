@@ -15,6 +15,7 @@
  */
 package com.embabel.example;
 
+import com.embabel.agent.config.annotation.LoggingThemes;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import com.embabel.agent.config.annotation.EnableAgentShell;
@@ -36,7 +37,7 @@ import com.embabel.agent.config.annotation.EnableAgents;
 @SpringBootApplication
 @EnableAgentShell
 @EnableAgents(
-    loggingTheme = "severance"
+    loggingTheme = LoggingThemes.SEVERANCE
 )
 public class AgentShellApplication {
     

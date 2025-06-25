@@ -19,6 +19,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 import com.embabel.agent.config.annotation.EnableAgentMcpServer
 import com.embabel.agent.config.annotation.EnableAgents
+import com.embabel.agent.config.annotation.McpServers
+import io.modelcontextprotocol.server.McpServer
 
 /**
  * Spring Boot application that runs Embabel agents as an MCP (Model Context Protocol) server.
@@ -32,7 +34,7 @@ import com.embabel.agent.config.annotation.EnableAgents
 @SpringBootApplication
 @EnableAgentMcpServer
 @EnableAgents(
-    mcpClients = ["docker-desktop"]
+    mcpServers = [McpServers.DOCKER_DESKTOP],
 )
 class AgentMcpServerApplication
 

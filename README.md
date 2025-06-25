@@ -77,14 +77,14 @@ The Embabel Agent framework provides three distinct application modes through de
 // 1. Interactive Shell Mode with Star Wars themed logging
 @SpringBootApplication
 @EnableAgentShell
-@EnableAgents(loggingTheme = "starwars")
+@EnableAgents(loggingTheme = LoggingThemes.STAR_WARS)
 class AgentShellApplication
 
 // 2. Shell Mode with MCP Client Support (Docker Desktop integration)
 @SpringBootApplication
 @EnableAgentShell
 @EnableAgents(
-    loggingTheme = "severance",
+    loggingTheme = LoggingThemes.SEVERANCE,
     mcpClients = ["docker-desktop"]
 )
 class AgentShellMcpClientApplication
@@ -101,7 +101,7 @@ class AgentMcpServerApplication
 @SpringBootApplication
 @EnableAgentShell
 @EnableAgents(
-    loggingTheme = "starwars",
+    loggingTheme = LoggingThemes.STAR_WARS,
     mcpClients = {"docker-desktop"}
 )
 public class AgentShellApplication
@@ -464,7 +464,7 @@ fun main(args: Array<String>) {
 @SpringBootApplication
 @EnableAgentShell
 @EnableAgents(
-    loggingTheme = "starwars",
+    loggingTheme = LoggingThemes.STAR_WARS,
     mcpClients = ["docker-desktop"]
 )
 class MyThemedAgentApplication

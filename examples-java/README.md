@@ -105,10 +105,13 @@ spring:
 ## 🏃 Running Modes
 
 ### Interactive Shell (Development)
+
 ```java
+import com.embabel.agent.config.annotation.LoggingThemes;
+
 @SpringBootApplication
 @EnableAgentShell
-@EnableAgents(loggingTheme = "starwars")
+@EnableAgents(loggingTheme = LoggingThemes.STAR_WARS)
 public class AgentShellApplication {
     public static void main(String[] args) {
         SpringApplication.run(AgentShellApplication.class, args);
