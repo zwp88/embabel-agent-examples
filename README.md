@@ -85,14 +85,14 @@ class AgentShellApplication
 @EnableAgentShell
 @EnableAgents(
     loggingTheme = LoggingThemes.SEVERANCE,
-    mcpClients = ["docker-desktop"]
+    mcpServers = [McpServers.DOCKER_DESKTOP]
 )
 class AgentShellMcpClientApplication
 
 // 3. MCP Server Mode  
 @SpringBootApplication
 @EnableAgentMcpServer
-@EnableAgents(mcpClients = ["docker-desktop"])
+@EnableAgents(mcpServers = [McpServers.DOCKER_DESKTOP])
 class AgentMcpServerApplication
 ```
 
@@ -102,13 +102,13 @@ class AgentMcpServerApplication
 @EnableAgentShell
 @EnableAgents(
     loggingTheme = LoggingThemes.STAR_WARS,
-    mcpClients = {"docker-desktop"}
+    mcpServers = {McpServers.DOCKER_DESKTOP}
 )
 public class AgentShellApplication
 
 @SpringBootApplication  
 @EnableAgentMcpServer
-@EnableAgents(mcpClients = "docker-desktop")
+@EnableAgents(mcpServers = {McpServers.DOCKER_DESKTOP})
 public class AgentMcpApplication
 ```
 
@@ -132,7 +132,7 @@ public class AgentMcpApplication
 - 🎨 **loggingTheme**: Customize your agent's logging personality
   - `"starwars"` - May the Force be with your logs!
   - `"severance"` - Welcome to Lumon Industries (default)
-- 🐳 **mcpClients**: Enable MCP client integrations
+- 🐳 **mcpServers**: Enable MCP client integrations
   - `"docker-desktop"` - Docker Desktop AI capabilities
   - Custom clients can be added
 
@@ -335,6 +335,18 @@ data class AssertionCheck(
 
 ---
 
+### Additional Examples
+
+Some of our examples are projects in their own right, and are therefore
+in separate repositories.
+
+See:
+
+- [Coding Agent](https://www.github.com/embabel/coding-agent): An open source coding agent
+- [Movie Finder](https://www.github.com/embabel/movie-finder): A movie recommendation engine that takes into account the user's tastes and what's available to them in their country on the streaming services they subscribe to. Uses external APIs and PostgreSQL via JPA. Illustrates a complex workflow where recommendations are generated until enough available movies have been found.
+- [Decker](https://www.github.com/embabel/decker): An agent to build presentations using Embabel
+- [Travel planner](https://www.github.com/embabel/travel-planner): An agent to plan a trip.
+
 ## 🔧 Running Specific Examples
 
 ### **Interactive Shell Mode** (Default)
@@ -465,7 +477,7 @@ fun main(args: Array<String>) {
 @EnableAgentShell
 @EnableAgents(
     loggingTheme = LoggingThemes.STAR_WARS,
-    mcpClients = ["docker-desktop"]
+    mcpServers = [McpServers.DOCKER_DESKTOP]
 )
 class MyThemedAgentApplication
 
