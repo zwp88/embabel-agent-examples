@@ -68,6 +68,20 @@ shell.cmd           # Windows
 
 ---
 
+### Creating Your Own Project
+
+You can create your own agent repo from our [Java](https://github.com/embabel/java-agent-template)
+or [Kotlin](https://github.com/embabel/kotlin-agent-template) GitHub template by clicking the "Use this template"
+button.
+
+Or create your own Embabel agent project locally with our quick start tool:
+
+```
+uvx --from git+https://github.com/embabel/project-creator.git project-creator
+```
+
+Choose Java or Kotlin and specify your project name and package name and you'll have an agent running in under a minute,
+if you already have an `OPENAI_API_KEY` and have Maven installed.
 ## 🆕 **Spring Boot Integration Architecture**
 
 ### **Three Application Modes**
