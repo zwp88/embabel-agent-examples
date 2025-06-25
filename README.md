@@ -253,7 +253,7 @@ fun acceptReport(report: ResearchReport, critique: Critique): ResearchReport
 "Research the latest developments in renewable energy adoption"
 ```
 
-**Location:** `examples-kotlin/src/main/kotlin/com/embabel/example/dogfood/research/`
+**Location:** `examples-kotlin/src/main/kotlin/com/embabel/example/researcher/`
 
 ---
 
@@ -309,7 +309,7 @@ data class AssertionCheck(
 "Check these facts: The Earth is flat. Paris is the capital of France."
 ```
 
-**Location:** `examples-kotlin/src/main/kotlin/com/embabel/example/dogfood/factchecker/`
+**Location:** `examples-kotlin/src/main/kotlin/com/embabel/example/factchecker/`
 
 ---
 
