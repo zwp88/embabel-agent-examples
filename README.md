@@ -345,7 +345,7 @@ See:
 - [Coding Agent](https://www.github.com/embabel/coding-agent): An open source coding agent
 - [Movie Finder](https://www.github.com/embabel/movie-finder): A movie recommendation engine that takes into account the user's tastes and what's available to them in their country on the streaming services they subscribe to. Uses external APIs and PostgreSQL via JPA. Illustrates a complex workflow where recommendations are generated until enough available movies have been found.
 - [Decker](https://www.github.com/embabel/decker): An agent to build presentations using Embabel
-- [Travel planner](https://www.github.com/embabel/travel-planner): An agent to plan a trip.
+- [Tripper](https://www.github.com/embabel/tripper): Travel planning agent. Uses mapping APIs to find routes and places of interest, and generates a travel itinerary. Performs research on points of interest in parallel.
 
 ## 🔧 Running Specific Examples
 
@@ -431,7 +431,6 @@ cd scripts/java && ./mcp_server.sh
 
 Your agents become available as tools:
 - **StarNewsFinder** - `find_horoscope_news`
-- **MovieFinder** - `suggest_movies` 
 - **Researcher** - `research_topic`
 - **FactChecker** - `check_facts`
 
@@ -509,16 +508,14 @@ fun main(args: Array<String>) {
 4. Try different logging themes to make development more fun!
 
 ### **Spring Developer?**
-1. Examine the **Movie Finder** for advanced Spring patterns
-2. Look at the configuration classes and repository integration
-3. Study the domain model design and service composition
-4. Explore the different application modes and Maven profiles
-5. See how themes and MCP clients are configured
+1. Look at the configuration classes and repository integration
+2. Study the domain model design and service composition
+3. Explore the different application modes and Maven profiles
+4. See how themes and MCP clients are configured
 
 ### **Kotlin Enthusiast?**
-1. Start with **Movie Finder** for advanced Kotlin features
-2. Progress to **Researcher** for multi-model patterns
-3. Explore **Fact Checker** for functional DSL approaches
+1. Progress to **Researcher** for multi-model patterns
+2. Explore **Fact Checker** for functional DSL approaches
 
 ### **AI/ML Developer?**
 1. Study prompt engineering techniques in any example
@@ -530,15 +527,15 @@ fun main(args: Array<String>) {
 
 ## 🚨 Common Issues & Solutions
 
-| Problem | Solution |
-|---------|----------|
-| **"No API keys found"** | Set `OPENAI_API_KEY` or `ANTHROPIC_API_KEY` |
-| **Movie agent fails** | Set `OMDB_API_KEY` and `X_RAPIDAPI_KEY` |
-| **Wrong examples load** | Use correct script: `kotlin/shell.sh` vs `java/shell.sh` |
-| **Build failures** | Run `./mvnw clean install` (Unix/macOS) or `mvnw.cmd clean install` (Windows) from project root |
-| **Tests fail** | Check API keys are set in test environment |
+| Problem                         | Solution |
+|---------------------------------|----------|
+| **"No API keys found"**         | Set `OPENAI_API_KEY` or `ANTHROPIC_API_KEY` |
+| **Wrong examples load**         | Use correct script: `kotlin/shell.sh` vs `java/shell.sh` |
+| **Build failures**              | Run `./mvnw clean install` (Unix/macOS) or `mvnw.cmd clean install` (Windows) from project root |
 | **Application class not found** | Check Maven profile matches application class |
-| **MCP server fails to start** | Check port availability and Docker Desktop status |
+| **MCP client fails to connect** | Check port availability and Docker Desktop status |
+
+Look at the log output in the event of failure as it may contain hints as to the solution.
 
 ---
 
@@ -552,10 +549,6 @@ embabel-agent-examples/
 │   │   ├── AgentShellMcpClientApplication.kt # Shell + MCP client
 │   │   ├── AgentMcpServerApplication.kt     # MCP server mode  
 │   │   ├── horoscope/              # 🌟 Beginner: Star news agent
-│   │   ├── movie/                  # 🎬 Advanced: Movie recommender  
-│   │   └── dogfood/
-│   │       ├── research/           # 🔬 Expert: Multi-LLM researcher
-│   │       └── factchecker/        # ✅ Expert: Fact checker (DSL)
 │   ├── pom.xml                     # Maven profiles for each mode
 │   └── README.md                   # 📖 Kotlin-specific documentation
 │
