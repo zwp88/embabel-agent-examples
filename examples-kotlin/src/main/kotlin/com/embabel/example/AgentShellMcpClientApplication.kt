@@ -44,7 +44,7 @@ import io.modelcontextprotocol.server.McpServer
 @EnableAgentShell
 @EnableAgents(
     loggingTheme = LoggingThemes.SEVERANCE,
-    mcpServers = [McpServers.DOCKER_DESKTOP],
+    mcpServers = [McpServers.DOCKER_DESKTOP, McpServers.DOCKER],
 )
 class AgentShellMcpClientApplication
 

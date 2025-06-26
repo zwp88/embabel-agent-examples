@@ -34,7 +34,7 @@ import io.modelcontextprotocol.server.McpServer
 @SpringBootApplication
 @EnableAgentMcpServer
 @EnableAgents(
-    mcpServers = [McpServers.DOCKER_DESKTOP],
+    mcpServers = [McpServers.DOCKER_DESKTOP, McpServers.DOCKER],
 )
 class AgentMcpServerApplication
 
