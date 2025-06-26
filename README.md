@@ -152,6 +152,21 @@ public class AgentMcpApplication
 
 ---
 
+## Setting up MCP Tools
+
+Several of the examples use the Model Context Protocol (MCP) to access tools and services.
+
+The default source is the Docker Desktop MCP server, which is installed with Docker Desktop.
+
+To ensure tools are available and startup doesn't time out, first pull models with:
+
+```bash
+docker login
+docker mcp gateway run
+```
+
+When the gateway has come up you can kill it and start the Embabel server.
+
 ## 📚 Examples by Learning Level
 
 ### 🌟 **Beginner: Horoscope News Agent**
@@ -453,7 +468,7 @@ Your agents become available as tools:
 Enable your agents to use external MCP tools:
 
 ```kotlin
-@EnableAgents(mcpClients = ["docker-desktop"])
+@EnableAgents(mcpServers = [McpServers.DOCKER_DESKTOP, McpServers.DOCKER])
 ```
 
 This allows your agents to:
@@ -541,13 +556,13 @@ fun main(args: Array<String>) {
 
 ## 🚨 Common Issues & Solutions
 
-| Problem                         | Solution |
-|---------------------------------|----------|
-| **"No API keys found"**         | Set `OPENAI_API_KEY` or `ANTHROPIC_API_KEY` |
-| **Wrong examples load**         | Use correct script: `kotlin/shell.sh` vs `java/shell.sh` |
+| Problem                         | Solution                                                                                        |
+|---------------------------------|-------------------------------------------------------------------------------------------------|
+| **"No API keys found"**         | Set `OPENAI_API_KEY` or `ANTHROPIC_API_KEY`                                                     |
+| **Wrong examples load**         | Use correct script: `kotlin/shell.sh` vs `java/shell.sh`                                        |
 | **Build failures**              | Run `./mvnw clean install` (Unix/macOS) or `mvnw.cmd clean install` (Windows) from project root |
-| **Application class not found** | Check Maven profile matches application class |
-| **MCP client fails to connect** | Check port availability and Docker Desktop status |
+| **Application class not found** | Check Maven profile matches application class                                                   |
+| **MCP client fails to connect** | Check port availability and Docker Desktop status. See instructions on pulling models above.    |
 
 Look at the log output in the event of failure as it may contain hints as to the solution.
 
