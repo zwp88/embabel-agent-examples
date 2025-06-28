@@ -244,7 +244,7 @@ agent(name = "FactChecker", description = "Check content for factual accuracy") 
                 { context -> /* extract assertions with this LLM */ }
             },
             merge = { list, context -> /* rationalize overlapping claims */ }
-        ).parallelize()
+        )
     }
     
     transformation<RationalizedFactualAssertions, FactCheck> { 
