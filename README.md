@@ -623,3 +623,7 @@ Licensed under the Apache License 2.0. See [LICENSE](LICENSE) for details.
 **🎉 Happy coding with Spring Framework and agentic AI!**
 
 ### 🌟 May the Force be with your agents! 🌟
+
+## Contributors
+
+[![Embabel contributors](https://contrib.rocks/image?repo=embabel/embabel-agent-examples)](https://github.com/embabel/embabel-agent-examples/graphs/contributors)
