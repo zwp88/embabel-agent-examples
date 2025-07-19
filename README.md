@@ -437,13 +437,17 @@ Configure Claude Desktop as follows in your `claude_desktop_config.yml`:
 }
 
 ```
-Create a project in Claude Desktop to work with Embabel examples. This will
-enable you to add a custom system prompt.
 
 See [MCP Quickstart for Claude Desktop Users](https://modelcontextprotocol.io/quickstart/user) for how to configure
 Claude Desktop.
 
-EXAMPLE
+Create a project in Claude Desktop to work with Embabel examples. This will
+enable you to add a custom system prompt.
+
+The Embabel server will expose each goal as an MCP tool, enabling
+Claude Desktop to invoke them like this:
+
+<img src="images/Claude_Desktop_StarNews.jpg" alt="Claude Desktop invoking Embabel Star News Finder Agent" width="600"/>
 
 
 
