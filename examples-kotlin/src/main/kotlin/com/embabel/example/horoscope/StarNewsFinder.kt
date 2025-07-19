@@ -243,7 +243,7 @@ class StarNewsFinder(
     // The @AchievesGoal annotation indicates that completing this action
     // achieves the given goal, so the agent flow can be complete
     @AchievesGoal(
-        description = "Create an amusing writeup for the target person based on their horoscope and current news stories",
+        description = "Create an amusing writeup for the target person based on their horoscope",
     )
     @Action
     fun starNewsWriteup(

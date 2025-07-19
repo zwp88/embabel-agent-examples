@@ -1,4 +1,4 @@
-![Build](https://github.com/embabel/embabel-agent/actions/workflows/maven.yml/badge.svg)
+![Build](https://github.com/embabel/embabel-agent-examples/actions/workflows/maven.yml/badge.svg)
 
 [//]: # ([![Quality Gate Status]&#40;https://sonarcloud.io/api/project_badges/measure?project=embabel_embabel-agent&metric=alert_status&token=d275d89d09961c114b8317a4796f84faf509691c&#41;]&#40;https://sonarcloud.io/summary/new_code?id=embabel_embabel-agent&#41;)
 
@@ -416,6 +416,46 @@ cd scripts/java && mcp_server.cmd        # Windows
 ```
 
 Uses Maven profile: `enable-agent-mcp-server`
+
+You can use the Embabel agent platform as an MCP server from a
+UI like Claude Desktop. The Embabel MCP server is available over SSE.
+
+Configure Claude Desktop as follows in your `claude_desktop_config.yml`:
+
+```json
+{
+  "mcpServers": {
+    "embabel-examples": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "mcp-remote",
+        "http://localhost:8080/sse"
+      ]
+    }
+  }
+}
+
+```
+Create a project in Claude Desktop to work with Embabel examples. This will
+enable you to add a custom system prompt.
+
+See [MCP Quickstart for Claude Desktop Users](https://modelcontextprotocol.io/quickstart/user) for how to configure
+Claude Desktop.
+
+EXAMPLE
+
+
+
+The [MCP Inspector](https://github.com/modelcontextprotocol/inspector) is a helpful tool for interacting with your Embabel
+SSE server, manually invoking tools and checking the exposed prompts and resources.
+
+Start the MCP Inspector with:
+
+```bash
+npx @modelcontextprotocol/inspector
+```
+
 
 ### **Manual Execution**
 ```bash
