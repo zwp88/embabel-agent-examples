@@ -93,13 +93,13 @@ data class Writeup(
 )
 class StarNewsFinder(
     private val horoscopeService: HoroscopeService,
-    @Value("\${star-news-finder.model:gpt-4.1-mini}")
+    @param:Value("\${star-news-finder.model:gpt-4.1-mini}")
 //    @Value("\${star-news-finder.model:ai/llama3.2}")
 
     private val model: String = OpenAiModels.GPT_41_NANO,
-    @Value("\${star-news-finder.story.count:5}")
+    @param:Value("\${star-news-finder.story.count:5}")
     private val storyCount: Int,
-    @Value("\${star-news-finder.word.count:100}")
+    @param:Value("\${star-news-finder.word.count:100}")
     private val wordCount: Int,
 ) {
 
@@ -244,6 +244,7 @@ class StarNewsFinder(
     // achieves the given goal, so the agent flow can be complete
     @AchievesGoal(
         description = "Create an amusing writeup for the target person based on their horoscope",
+        startingInputTypes = [StarPerson::class],
     )
     @Action
     fun starNewsWriteup(
